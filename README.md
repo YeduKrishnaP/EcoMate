@@ -44,6 +44,31 @@ EcoMate is a comprehensive environmental sustainability platform designed to hel
 - OpenRouter API key for AI features
 - Internet connection for map services
 
+  ## 🌟 Screenshots
+
+### Waste Classification
+
+![Waste Classifier 1](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/garbage_classifier%201.png)
+
+![Waste Classifier 2](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/garbage_classifier%202.png)
+
+![Waste Classifier 3](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/garbage_classifier%203.png)
+
+![Waste Classifier 4](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/garbage_classifier%204.png)
+
+### Carbon Calculator
+![Carbon Calculator](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/carbon_footprint_tracker.png)
+
+### Interactive Map
+![Interactive Map](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/community_events_map.png)
+
+### Community Marketplace!!!
+![Community Hub]([<img width="953" height="479" alt="image" src="https://github.com/user-attachments/assets/171efb45-fc42-4227-bd08-c272ffd4788c" />](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/community_marketplace.png))
+
+### Profile Dashboard for the Serious xP
+![Profile Dashboard for the warriors]([<img width="955" height="476" alt="image" src="https://github.com/user-attachments/assets/cd4d4ade-f8bf-46ec-9d7c-42e98012663d" />](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/eco_warrior_profile.png))
+
+
 ### Backend Setup
 
 1. **Clone the repository**
@@ -177,24 +202,7 @@ Engaging user experience through:
 - Achievement badges and milestones
 - Weekly environmental challenges
 - Community leaderboards and social features
-
-## 🌟 Screenshots
-
-### Waste Classification
-![Waste Classification](<img width="955" height="482" alt="image" src="https://github.com/user-attachments/assets/f1b9e562-941c-4fac-9c9a-ed982896a13e" />)
-
-### Carbon Calculator
-![Carbon Calculator]()
-
-### Interactive Map
-![Interactive Map](<img width="956" height="482" alt="image" src="https://github.com/user-attachments/assets/4af072ca-5f54-4ee0-844f-f64fbc2bca77" />)
-
-### Community Hub
-![Community Hub](<img width="953" height="479" alt="image" src="https://github.com/user-attachments/assets/171efb45-fc42-4227-bd08-c272ffd4788c" />)
-
-### Profile Dashboard for the Serious xP
-![Profile Dashboard for the warriors](<img width="955" height="476" alt="image" src="https://github.com/user-attachments/assets/cd4d4ade-f8bf-46ec-9d7c-42e98012663d" />)
-
+  
 
 ## 🔧 API Endpoints
 
