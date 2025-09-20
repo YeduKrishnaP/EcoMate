@@ -59,10 +59,10 @@ def classify_image_from_bytes(image_bytes):
                                 "text": """Analyze this waste image and provide a JSON response with the following exact structure:
                                 {
                                     "category": "exact waste category (Paper, Plastic, Organic, Glass, Metal, E-waste, Hazardous)",
-                                    "bin": "which bin to dispose in",
-                                    "tip": "disposal or recycling tip",
-                                    "confidence": 85,
-                                    "points": 15,
+                                    "bin": "which bin to dispose in (what color bin should it be disposed in? Blue/Green or if it needs specific disposal mechanisms)",
+                                    "tip": "one disposal and a recycling tip",
+                                    "confidence": (your confidence measure about the classification and disposal suggestions),
+                                    "points": (a number based on how much of a good impact disposal/recycling of said item is),
                                     "reuse_ideas": "creative reuse suggestions"
                                 }
 
