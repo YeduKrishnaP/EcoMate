@@ -44,7 +44,7 @@ EcoMate is a comprehensive environmental sustainability platform designed to hel
 - OpenRouter API key for AI features
 - Internet connection for map services
 
-  ## 🌟 Screenshots
+## 🌟 Screenshots
 
 ### Waste Classification
 
