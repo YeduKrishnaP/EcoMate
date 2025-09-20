@@ -63,10 +63,10 @@ EcoMate is a comprehensive environmental sustainability platform designed to hel
 ![Interactive Map](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/community_events_map.png)
 
 ### Community Marketplace!!!
-![Community Hub]([<img width="953" height="479" alt="image" src="https://github.com/user-attachments/assets/171efb45-fc42-4227-bd08-c272ffd4788c" />](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/community_marketplace.png))
+[<img width="953" height="479" alt="image" src="https://github.com/user-attachments/assets/171efb45-fc42-4227-bd08-c272ffd4788c" />](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/community_marketplace.png))
 
 ### Profile Dashboard for the Serious xP
-![Profile Dashboard for the warriors]([<img width="955" height="476" alt="image" src="https://github.com/user-attachments/assets/cd4d4ade-f8bf-46ec-9d7c-42e98012663d" />](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/eco_warrior_profile.png))
+[<img width="955" height="476" alt="image" src="https://github.com/user-attachments/assets/cd4d4ade-f8bf-46ec-9d7c-42e98012663d" />](https://github.com/YeduKrishnaP/EcoMate/blob/main/images/eco_warrior_profile.png))
 
 
 ### Backend Setup
