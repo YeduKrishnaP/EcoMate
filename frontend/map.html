@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLife - Interactive Map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        :root {
+            --color-white: rgba(255, 255, 255, 1);
+            --color-black: rgba(0, 0, 0, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-gray-400: rgba(119, 124, 124, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-red-500: rgba(192, 21, 47, 1);
+            --color-orange-500: rgba(168, 75, 47, 1);
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--color-teal-500);
+            --color-primary-hover: var(--color-teal-600);
+            --color-border: rgba(94, 82, 64, 0.2);
+            --color-card-border: rgba(94, 82, 64, 0.12);
+            --space-8: 8px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --space-32: 32px;
+            --radius-base: 8px;
+            --radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.5;
+            padding: var(--space-16);
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-32);
+            padding: var(--space-20) 0;
+        }
+
+        .section-header h2 {
+            color: var(--color-text);
+            margin-bottom: var(--space-8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-16);
+            font-size: 24px;
+        }
+
+        .section-header p {
+            color: var(--color-text-secondary);
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .map-filters {
+            display: flex;
+            gap: var(--space-8);
+            margin-bottom: var(--space-16);
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: var(--space-8) var(--space-16);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        .map-container {
+            height: 500px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-24);
+            border: 1px solid var(--color-card-border);
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .locations-list {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            padding: var(--space-20);
+        }
+
+        .locations-list h3 {
+            margin-bottom: var(--space-16);
+            font-size: 18px;
+        }
+
+        .location-card {
+            background: var(--color-background);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-base);
+            padding: var(--space-16);
+            margin-bottom: var(--space-16);
+            transition: all 0.2s ease;
+        }
+
+        .location-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .location-card h4 {
+            margin-bottom: var(--space-8);
+            font-size: 16px;
+            color: var(--color-text);
+        }
+
+        .location-card p {
+            margin-bottom: var(--space-8);
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        .location-type {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: var(--space-8);
+        }
+
+        .type-recycling {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #2e7d32;
+        }
+
+        .type-ewaste {
+            background-color: rgba(156, 39, 176, 0.2);
+            color: #7b1fa2;
+        }
+
+        .type-composting {
+            background-color: rgba(255, 152, 0, 0.2);
+            color: #ef6c00;
+        }
+
+        /* Leaflet customizations */
+        .leaflet-popup-content {
+            margin: 12px;
+            font-family: inherit;
+        }
+
+        .leaflet-popup-content-wrapper {
+            border-radius: var(--radius-base);
+        }
+
+        .leaflet-popup-content h4 {
+            margin-bottom: 8px;
+            color: var(--color-text);
+        }
+
+        .leaflet-popup-content p {
+            margin-bottom: 4px;
+            color: var(--color-text-secondary);
+        }
+
+        .custom-marker {
+            width: 30px;
+            height: 30px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .marker-inner {
+            transform: rotate(45deg);
+            color: white;
+            font-size: 14px;
+        }
+
+        .marker-recycling {
+            background-color: #4CAF50;
+        }
+
+        .marker-ewaste {
+            background-color: #9C27B0;
+        }
+
+        .marker-composting {
+            background-color: #FF9800;
+        }
+
+        @media (max-width: 768px) {
+            .map-container {
+                height: 400px;
+            }
+            
+            .map-filters {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Map Section -->
+        <section id="map-section">
+            <div class="section-header">
+                <h2><i class="fas fa-map-marker-alt"></i> Eco Map</h2>
+                <p>Discover eco-friendly locations near you</p>
+            </div>
+
+            <div class="map-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="recycling">♻️ Recycling</button>
+                <button class="filter-btn" data-filter="ewaste">📱 E-Waste</button>
+                <button class="filter-btn" data-filter="composting">🌱 Composting</button>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+
+            <div class="locations-list">
+                <h3>Nearby Locations</h3>
+                <div id="locationList">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+            </div>
+            <!-- Add this inside the map-section div -->
+            <div class="map-header">
+                <button class="back-button" onclick="window.parent.postMessage('closeMap', '*')">
+                    <i class="fas fa-arrow-left"></i> Back to App
+                </button>
+                <!-- Rest of your header content -->
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Extended list of synthetic locations with coordinates
+        const locations = [
+            {name: "Central Recycling Hub", type: "recycling", lat: 40.7128, lng: -74.0060, rating: 4.5},
+            {name: "E-Waste Center", type: "ewaste", lat: 40.7210, lng: -74.0005, rating: 4.2},
+            {name: "Community Compost Site", type: "composting", lat: 40.7150, lng: -74.0110, rating: 4.7},
+            {name: "Greenpoint Recycling", type: "recycling", lat: 40.7320, lng: -73.9550, rating: 4.0},
+            {name: "Tech Disposal Depot", type: "ewaste", lat: 40.7500, lng: -73.9850, rating: 4.3},
+            {name: "Organic Waste Facility", type: "composting", lat: 40.7050, lng: -74.0150, rating: 4.8},
+            {name: "Upper West Recycling", type: "recycling", lat: 40.7870, lng: -73.9750, rating: 4.1},
+            {name: "Battery Drop Center", type: "ewaste", lat: 40.7600, lng: -73.9750, rating: 4.4},
+            {name: "Garden Compost Corner", type: "composting", lat: 40.7700, lng: -73.9550, rating: 4.6},
+            {name: "East Side Recycling", type: "recycling", lat: 40.7250, lng: -73.9950, rating: 3.9},
+            {name: "Computer Recycling", type: "ewaste", lat: 40.7450, lng: -74.0050, rating: 4.5},
+            {name: "Food Waste Collection", type: "composting", lat: 40.7350, lng: -74.0050, rating: 4.7}
+        ];
+
+        // Initialize the map
+        function initMap() {
+            // Create map centered on Manhattan
+            const map = L.map('map').setView([40.7128, -74.0060], 13);
+            
+            // Add tile layer (OpenStreetMap as base)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Add a more stylish alternative layer (CartoDB)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }).addTo(map);
+            
+            // Create custom icons for different location types
+            function createCustomIcon(type) {
+                let className = 'custom-marker';
+                let iconHtml = '';
+                
+                switch(type) {
+                    case 'recycling':
+                        className += ' marker-recycling';
+                        iconHtml = '♻️';
+                        break;
+                    case 'ewaste':
+                        className += ' marker-ewaste';
+                        iconHtml = '📱';
+                        break;
+                    case 'composting':
+                        className += ' marker-composting';
+                        iconHtml = '🌱';
+                        break;
+                    default:
+                        className += ' marker-recycling';
+                        iconHtml = '♻️';
+                }
+                
+                return L.divIcon({
+                    className: className,
+                    html: `<div class="marker-inner">${iconHtml}</div>`,
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 30],
+                    popupAnchor: [0, -30]
+                });
+            }
+            
+            // Add markers for each location
+            const markers = [];
+            locations.forEach(location => {
+                const marker = L.marker([location.lat, location.lng], {
+                    icon: createCustomIcon(location.type)
+                }).addTo(map);
+                
+                // Bind popup to marker
+                marker.bindPopup(`
+                    <h4>${location.name}</h4>
+                    <p>Type: ${location.type}</p>
+                    <p>Rating: ${location.rating} ⭐</p>
+                    <p>Coordinates: ${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}</p>
+                `);
+                
+                markers.push({
+                    element: marker,
+                    type: location.type
+                });
+            });
+            
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filter = button.dataset.filter;
+                    
+                    // Show/hide markers based on filter
+                    markers.forEach(marker => {
+                        if (filter === 'all' || marker.type === filter) {
+                            map.addLayer(marker.element);
+                        } else {
+                            map.removeLayer(marker.element);
+                        }
+                    });
+                    
+                    // Update location list
+                    updateLocationList(filter);
+                });
+            });
+            
+            // Function to update location list based on filter
+            function updateLocationList(filter = 'all') {
+                const container = document.getElementById('locationList');
+                const filteredLocations = filter === 'all' 
+                    ? locations 
+                    : locations.filter(loc => loc.type === filter);
+                
+                container.innerHTML = filteredLocations.map(loc => `
+                    <div class="location-card">
+                        <h4>${loc.name}</h4>
+                        <p>
+                            <span class="location-type type-${loc.type}">${getTypeIcon(loc.type)} ${loc.type}</span>
+                        </p>
+                        <p>Rating: ${loc.rating} ⭐</p>
+                        <p>Coordinates: ${loc.lat.toFixed(4)}, ${loc.lng.toFixed(4)}</p>
+                    </div>
+                `).join('');
+            }
+            
+            // Helper function to get icon for location type
+            function getTypeIcon(type) {
+                switch(type) {
+                    case 'recycling': return '♻️';
+                    case 'ewaste': return '📱';
+                    case 'composting': return '🌱';
+                    default: return '📍';
+                }
+            }
+            
+            // Initialize location list
+            updateLocationList();
+        }
+        
+        // Initialize the map when the page loads
+        document.addEventListener('DOMContentLoaded', initMap);
+    </script>
+
+    <script>
+// Simple back button functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Create back button
+    const backButton = document.createElement('button');
+    backButton.innerHTML = '<i class="fas fa-arrow-left"></i> Back';
+    backButton.style.position = 'absolute';
+    backButton.style.top = '20px';
+    backButton.style.left = '20px';
+    backButton.style.zIndex = '1000';
+    backButton.style.padding = '10px 15px';
+    backButton.style.background = 'var(--color-primary)';
+    backButton.style.color = 'white';
+    backButton.style.border = 'none';
+    backButton.style.borderRadius = '20px';
+    backButton.style.cursor = 'pointer';
+    backButton.style.boxShadow = 'var(--shadow-md)';
+    
+    backButton.addEventListener('click', function() {
+        // Try to communicate with parent window
+        if (window !== window.top) {
+            window.parent.postMessage('closeMap', '*');
+        }
+    });
+    
+    document.body.appendChild(backButton);
+});
+</script>
+</body>
+</html>
