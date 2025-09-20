@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLife - Your Environmental Companion</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Main Content Container -->
+    <div class="app-container">
+        
+        <!-- Waste Classification Section -->
+        <section id="classify" class="tab-content active">
+            <div class="section-header">
+                <h2><i class="fas fa-camera"></i> Waste Classification</h2>
+                <p>Snap a photo to identify waste and get disposal guidance</p>
+            </div>
+            
+            <div class="waste-scanner">
+                <div class="camera-area">
+                    <div class="upload-zone" id="uploadZone">
+                        <i class="fas fa-camera-retro"></i>
+                        <h3>Scan Your Waste</h3>
+                        <p>Take a photo or upload an image</p>
+                        <button class="btn btn--primary" id="captureBtn">
+                            <i class="fas fa-camera"></i> Capture Photo
+                        </button>
+                        <input type="file" id="wasteImage" accept="image/*" hidden>
+                    </div>
+                    
+                    <div class="quick-classify">
+                        <h4>Quick Classification</h4>
+                        <div class="waste-buttons">
+                            <button class="waste-btn" data-type="Paper">📄 Paper</button>
+                            <button class="waste-btn" data-type="Plastic">🥤 Plastic</button>
+                            <button class="waste-btn" data-type="Organic">🍌 Organic</button>
+                            <button class="waste-btn" data-type="Glass">🍾 Glass</button>
+                            <button class="waste-btn" data-type="Metal">🥫 Metal</button>
+                            <button class="waste-btn" data-type="E-waste">📱 E-waste</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="classification-result" id="classificationResult">
+                    <div class="result-placeholder">
+                        <i class="fas fa-search"></i>
+                        <p>Classification results will appear here</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="classification-history">
+                <h3>Recent Classifications</h3>
+                <div id="recentClassifications"></div>
+            </div>
+        </section>
+
+        <!-- Eco Challenges Section -->
+        <section id="challenges" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-trophy"></i> Eco Challenges</h2>
+                <p>Join challenges and earn points for sustainable actions</p>
+            </div>
+            
+            <div class="challenge-stats">
+                <div class="stat-card">
+                    <i class="fas fa-fire"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="currentStreak">7</span>
+                        <span class="stat-label">Day Streak</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalPoints">450</span>
+                        <span class="stat-label">Total Points</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-medal"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="completedChallenges">3</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="challenge-categories">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="waste">♻️ Waste</button>
+                <button class="category-btn" data-category="transport">🚌 Transport</button>
+                <button class="category-btn" data-category="energy">⚡ Energy</button>
+                <button class="category-btn" data-category="consumption">🛒 Consumption</button>
+            </div>
+            
+            <div class="challenge-list" id="challengeList"></div>
+        </section>
+
+        <!-- Carbon Footprint Tracker Section -->
+        <section id="tracker" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-leaf"></i> Carbon Tracker</h2>
+                <p>Track and reduce your daily carbon footprint</p>
+            </div>
+            
+            <div class="carbon-summary">
+                <div class="carbon-display">
+                    <span class="carbon-amount" id="dailyCarbon">2.4</span>
+                    <span class="carbon-unit">kg CO₂</span>
+                    <p>Today's Footprint</p>
+                </div>
+                <div class="carbon-comparison">
+                    <div class="comparison-item">
+                        <span class="comparison-label">Monthly Average</span>
+                        <span class="comparison-value" id="monthlyCarbon">78 kg CO₂</span>
+                    </div>
+                    <div class="comparison-item success">
+                        <span class="comparison-label">Reduction</span>
+                        <span class="comparison-value" id="reductionCarbon">-12%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carbon-input">
+                <div class="input-tabs">
+                    <button class="input-tab active" data-category="transport">🚗 Transport</button>
+                    <button class="input-tab" data-category="food">🍽️ Food</button>
+                    <button class="input-tab" data-category="energy">⚡ Energy</button>
+                </div>
+                
+                <div class="carbon-form" id="carbonForm">
+                    <!-- Form content will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="carbon-tips">
+                <h3>Reduction Tips</h3>
+                <div id="carbonTips"></div>
+            </div>
+        </section>
+
+        <!-- Local Eco Map Section -->
+        <section id="map" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-map-marker-alt"></i> Eco Map</h2>
+                <p>Discover eco-friendly locations near you</p>
+            </div>
+            
+            <div class="map-filters">
+                <select id="locationFilter" class="form-control">
+                    <option value="all">All Locations</option>
+                    <option value="recycling">♻️ Recycling Centers</option>
+                    <option value="shopping">🛒 Eco Shopping</option>
+                    <option value="ewaste">📱 E-Waste Centers</option>
+                    <option value="garden">🌱 Community Gardens</option>
+                    <option value="repair">🔧 Repair Cafés</option>
+                </select>
+                <button class="btn btn--primary" id="locateMe">
+                    <i class="fas fa-crosshairs"></i> Near Me
+                </button>
+            </div>
+            
+            <div class="eco-map" id="ecoMap">
+                <!-- Interactive map will be rendered here -->
+            </div>
+            
+            <div class="location-list" id="locationList"></div>
+        </section>
+
+        <!-- Eco Marketplace Section -->
+        <section id="marketplace" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-exchange-alt"></i> Eco Marketplace</h2>
+                <p>Share, swap, and find sustainable items in your community</p>
+            </div>
+            
+            <div class="marketplace-actions">
+                <button class="btn btn--primary" id="addItemBtn">
+                    <i class="fas fa-plus"></i> Share an Item
+                </button>
+                <select id="categoryFilter" class="form-control">
+                    <option value="all">All Categories</option>
+                    <option value="furniture">🪑 Furniture</option>
+                    <option value="electronics">📱 Electronics</option>
+                    <option value="books">📚 Books</option>
+                    <option value="clothing">👕 Clothing</option>
+                    <option value="other">📦 Other</option>
+                </select>
+            </div>
+            
+            <div class="marketplace-grid" id="marketplaceGrid"></div>
+            
+            <!-- Add Item Modal -->
+            <div class="modal hidden" id="addItemModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Share an Item</h3>
+                        <button class="close-btn" id="closeAddModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addItemForm">
+                            <div class="form-group">
+                                <label class="form-label">Item Name</label>
+                                <input type="text" class="form-control" id="itemName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Category</label>
+                                <select class="form-control" id="itemCategory" required>
+                                    <option value="furniture">🪑 Furniture</option>
+                                    <option value="electronics">📱 Electronics</option>
+                                    <option value="books">📚 Books</option>
+                                    <option value="clothing">👕 Clothing</option>
+                                    <option value="other">📦 Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" id="itemDescription" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Condition</label>
+                                <select class="form-control" id="itemCondition">
+                                    <option value="excellent">Excellent</option>
+                                    <option value="good">Good</option>
+                                    <option value="fair">Fair</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">Share Item</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Profile Section -->
+        <section id="profile" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-user-circle"></i> My Profile</h2>
+                <p>Track your environmental impact and achievements</p>
+            </div>
+            
+            <div class="profile-overview">
+                <div class="user-avatar">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="user-info">
+                    <h3>Eco Warrior</h3>
+                    <p>Environmental Champion - Level 5</p>
+                    <div class="level-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%"></div>
+                        </div>
+                        <span>65% to next level</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="impact-dashboard">
+                <div class="impact-card">
+                    <i class="fas fa-recycle text-success"></i>
+                    <div class="impact-data">
+                        <span class="impact-number">127</span>
+                        <span class="impact-label">Items Classified</span>
+                    </div>
+                </div>
+                <div class="impact-card">
+                    <i class="fas fa-leaf text-primary"></i>
+                    <div class="impact-data">
+                        <span class="impact-number">45.2</span>
+                        <span class="impact-label">kg CO₂ Saved</span>
+                    </div>
+                </div>
+                <div class="impact-card">
+                    <i class="fas fa-tree text-success"></i>
+                    <div class="impact-data">
+                        <span class="impact-number">12</span>
+                        <span class="impact-label">Trees Planted</span>
+                    </div>
+                </div>
+                <div class="impact-card">
+                    <i class="fas fa-handshake text-warning"></i>
+                    <div class="impact-data">
+                        <span class="impact-number">8</span>
+                        <span class="impact-label">Items Shared</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="achievements-section">
+                <h3>Achievements</h3>
+                <div class="achievement-gallery" id="achievementGallery"></div>
+            </div>
+            
+            <div class="progress-charts">
+                <div class="chart-container" style="position: relative; height: 250px;">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" data-tab="classify">
+            <i class="fas fa-camera"></i>
+            <span>Classify</span>
+        </button>
+        <button class="nav-item" data-tab="challenges">
+            <i class="fas fa-trophy"></i>
+            <span>Challenges</span>
+        </button>
+        <button class="nav-item" data-tab="tracker">
+            <i class="fas fa-leaf"></i>
+            <span>Carbon</span>
+        </button>
+        <button class="nav-item" data-tab="map">
+            <i class="fas fa-map"></i>
+            <span>Eco Map</span>
+        </button>
+        <button class="nav-item" data-tab="marketplace">
+            <i class="fas fa-exchange-alt"></i>
+            <span>Market</span>
+        </button>
+        <button class="nav-item" data-tab="profile">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </button>
+    </nav>
+
+    <!-- Loading Indicator -->
+    <div class="loading hidden" id="loadingIndicator">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- JS scripts (order matters: app.js first, then modules) -->
+    <script src="js/app.js"></script>
+    <script src="js/classify.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/carbon.js"></script>
+</body>
+</html>
