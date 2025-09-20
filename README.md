@@ -100,6 +100,8 @@ EcoMate is a comprehensive environmental sustainability platform designed to hel
 
 ```
 EcoMate/
+│
+|
 ├── backend/
 │   ├── app.py                     # Main Flask application
 │   ├── models/
@@ -108,8 +110,6 @@ EcoMate/
 │   ├── data/
 │   │   ├── collection_points.json # Recycling location data
 │   │   └── waste_data.json       # Waste classification database
-│   ├── requirements.txt          # Python dependencies
-│   └── .env                      # Environment variables (create this)
 ├── frontend/
 │   ├── index.html               # Main application page
 │   ├── map.html                 # Interactive map page
@@ -123,6 +123,9 @@ EcoMate/
 │       ├── gamification.js     # Points and achievement system
 │       ├── progress.js         # Progress tracking utilities
 │       └── config.js           # Configuration constants
+|── .env                      # Environment variables (create this with the openrouter key as env variable)
+|
+|── requirements.txt   
 └── README.md                   # This file
 ```
 
