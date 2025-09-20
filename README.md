@@ -1,5 +1,3 @@
-# 🌱 EcoMate - Environmental Companion Platform
-
 [![GitHub](https://img.shields.io/badge/GitHub-EcoMate-green)](https://github.com/YeduKrishnaP/EcoMate)
 [![Python](https://img.shields.io/badge/Python-3.7+-blue)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-Web%20Framework-red)](https://flask.palletsprojects.com/)
@@ -150,6 +148,54 @@ EcoMate/
 - **Maps**: OpenStreetMap via Leaflet
 - **Icons**: Font Awesome CDN
 
+## 🎯 Key Features Explained
+
+### AI Waste Classification
+The platform uses advanced computer vision models through OpenRouter's API to:
+- Identify waste materials from photos
+- Provide disposal and recycling guidance
+- Suggest creative reuse options
+- Award points for sustainable actions
+
+### Carbon Footprint Tracking
+Real-time calculation system that:
+- Uses scientifically-backed emission factors
+- Tracks transportation-related emissions
+- Provides visual progress indicators
+- Offers personalized reduction strategies
+
+### Interactive Mapping
+Comprehensive location system featuring:
+- Real-time GPS integration
+- Custom markers for different facility types
+- Detailed facility information and reviews
+- Route planning for eco-friendly destinations
+
+### Gamification Elements
+Engaging user experience through:
+- Point-based reward system
+- Achievement badges and milestones
+- Weekly environmental challenges
+- Community leaderboards and social features
+
+## 🌟 Screenshots
+
+### Waste Classification
+![Waste Classification](<img width="955" height="482" alt="image" src="https://github.com/user-attachments/assets/f1b9e562-941c-4fac-9c9a-ed982896a13e" />)
+
+### Carbon Calculator
+![Carbon Calculator]()
+
+### Interactive Map
+![Interactive Map](<img width="956" height="482" alt="image" src="https://github.com/user-attachments/assets/4af072ca-5f54-4ee0-844f-f64fbc2bca77" />)
+
+### Community Hub
+![Community Hub](<img width="953" height="479" alt="image" src="https://github.com/user-attachments/assets/171efb45-fc42-4227-bd08-c272ffd4788c" />)
+
+### Profile Dashboard for the Serious xP
+![Profile Dashboard for the warriors](<img width="955" height="476" alt="image" src="https://github.com/user-attachments/assets/cd4d4ade-f8bf-46ec-9d7c-42e98012663d" />)
+
+
 ## 🔧 API Endpoints
 
 ### Waste Classification
@@ -206,86 +252,7 @@ Content-Type: application/json
 }
 ```
 
-## 🎯 Key Features Explained
 
-### AI Waste Classification
-The platform uses advanced computer vision models through OpenRouter's API to:
-- Identify waste materials from photos
-- Provide disposal and recycling guidance
-- Suggest creative reuse options
-- Award points for sustainable actions
-
-### Carbon Footprint Tracking
-Real-time calculation system that:
-- Uses scientifically-backed emission factors
-- Tracks transportation-related emissions
-- Provides visual progress indicators
-- Offers personalized reduction strategies
-
-### Interactive Mapping
-Comprehensive location system featuring:
-- Real-time GPS integration
-- Custom markers for different facility types
-- Detailed facility information and reviews
-- Route planning for eco-friendly destinations
-
-### Gamification Elements
-Engaging user experience through:
-- Point-based reward system
-- Achievement badges and milestones
-- Weekly environmental challenges
-- Community leaderboards and social features
-
-## 🌟 Screenshots
-
-### Main Dashboard
-![Dashboard](https://via.placeholder.com/800x400/4CAF50/FFFFFF?text=EcoMate+Dashboard)
-
-### Waste Classification
-![Waste Classification](https://via.placeholder.com/800x400/2196F3/FFFFFF?text=AI+Waste+Classification)
-
-### Carbon Calculator
-![Carbon Calculator](https://via.placeholder.com/800x400/FF9800/FFFFFF?text=Carbon+Footprint+Calculator)
-
-### Interactive Map
-![Interactive Map](https://via.placeholder.com/800x400/9C27B0/FFFFFF?text=Eco+Locations+Map)
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Commit your changes**: `git commit -m 'Add amazing feature'`
-4. **Push to the branch**: `git push origin feature/amazing-feature`
-5. **Open a Pull Request**
-
-### Development Guidelines
-- Follow existing code style and conventions
-- Add comments for complex functionality
-- Update documentation for new features
-- Test thoroughly before submitting PRs
-- Include screenshots for UI changes
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **OpenRouter** for providing AI model access
-- **Leaflet** for interactive mapping capabilities
-- **Font Awesome** for beautiful icons
-- **OpenStreetMap** contributors for map data
-- The open-source community for inspiration and tools
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-- 🐛 [Report Issues](https://github.com/YeduKrishnaP/EcoMate/issues)
-- 💬 [Join Discussions](https://github.com/YeduKrishnaP/EcoMate/discussions)
-- 📧 Contact the development team
 
 ## 🔄 Version History
 
