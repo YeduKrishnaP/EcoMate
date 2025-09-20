@@ -1,23 +1,23 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import random
+import base64
+from models.waste_classifier import classify_image_from_bytes
 
 app = Flask(__name__)
 CORS(app)
 
-# Waste classification
 @app.route("/api/classify", methods=["POST"])
 def classify():
-    waste_types = [
-        {"type": "Paper", "bin": "Blue Recycling", "tip": "Remove staples", "icon": "📄", "points": 5},
-        {"type": "Plastic", "bin": "Yellow Recycling", "tip": "Clean containers", "icon": "🥤", "points": 8},
-        {"type": "Organic", "bin": "Green Compost", "tip": "Great for composting!", "icon": "🍌", "points": 3},
-    ]
-    result = random.choice(waste_types)
-    confidence = f"{random.randint(80, 99)}%"
-    return jsonify({**result, "confidence": confidence})
+    data = request.get_json(force=True)
+    image_data = data.get("image", None)
+    if not image_data:
+        return jsonify({"error": "No image provided"}), 400
 
-# Eco map
+    header, encoded = image_data.split(",", 1)
+    image_bytes = base64.b64decode(encoded)
+    result = classify_image_from_bytes(image_bytes)
+    return jsonify(result)
+
 @app.route("/api/locations", methods=["GET"])
 def locations():
     return jsonify([
@@ -25,13 +25,12 @@ def locations():
         {"name": "E-Waste Center", "type": "ewaste", "lat": 40.75, "lng": -73.99, "rating": 4.2},
     ])
 
-# Carbon tracker
 @app.route("/api/carbon", methods=["GET"])
 def carbon():
     return jsonify({
         "today": 2.4,
         "monthly": 78,
-        "reduction": "-12%"
+        "reduction": -12
     })
 
 if __name__ == "__main__":
